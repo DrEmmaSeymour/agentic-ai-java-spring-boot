@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.example.taskapi.agent.AgentUnavailableException;
+
 /**
  * Translates exceptions into RFC 9457 ProblemDetail responses.
  * The base class already maps malformed JSON / bad enum values / bad UUIDs to 400.
@@ -26,6 +28,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ProblemDetail handleNotFound(TaskNotFoundException ex) {
 		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
 		problem.setTitle("Task not found");
+		return problem;
+	}
+
+	@ExceptionHandler(AgentUnavailableException.class)
+	public ProblemDetail handleAgentUnavailable(AgentUnavailableException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+		problem.setTitle("AI agent unavailable");
 		return problem;
 	}
 

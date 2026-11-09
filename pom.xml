@@ -13,7 +13,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Agentic AI Java Spring Boot Task API</name>
 	<description>
-		Task management REST API built with Java 25 and Spring Boot 4 using an agentic AI development workflow.
+		Task management REST API with an AI agent that uses Claude tool calling via Spring AI,
+		built with Java 25 and Spring Boot 4 using an agentic AI development workflow.
 	</description>
 	<url>https://github.com/DrEmmaSeymour/agentic-ai-java-spring-boot</url>
 	<licenses>
@@ -38,7 +39,20 @@
 		<java.version>25</java.version>
 		<!-- Empty default so @{argLine} resolves even when no other plugin (e.g. JaCoCo) sets it. -->
 		<argLine/>
+		<!-- Latest stable Spring AI; its Anthropic module is built against Spring Boot 4.1.2. -->
+		<spring-ai.version>2.0.2</spring-ai.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-bom</artifactId>
+				<version>${spring-ai.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,6 +61,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-anthropic</artifactId>
 		</dependency>
 
 		<dependency>

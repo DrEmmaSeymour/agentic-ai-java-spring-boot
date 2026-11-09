@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Local secrets (API keys belong in environment variables, never in Git) ###
+.env
+.env.*
+*.env
