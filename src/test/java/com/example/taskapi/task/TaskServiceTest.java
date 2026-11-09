@@ -54,7 +54,7 @@ class TaskServiceTest {
 
 	@Test
 	void updateStatusChangesOnlyTheStatus() {
-		Task original = service.create(new CreateTaskRequest("Demo", "desc"));
+		Task original = service.create(new CreateTaskRequest("Review pull request", "Check validation rules"));
 
 		Task updated = service.updateStatus(original.id(), TaskStatus.DONE);
 
